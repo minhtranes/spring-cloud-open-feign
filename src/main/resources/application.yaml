@@ -1,9 +1,0 @@
-spring.cloud.discovery.client.simple.instances.weathers[0].uri: https://api-server-simulator.herokuapp.com
-feign:
-    client:
-        config:
-            weathers:
-                connectTimeout: 5000
-                readTimeout: 15000
-                loggerLevel: full
-                
