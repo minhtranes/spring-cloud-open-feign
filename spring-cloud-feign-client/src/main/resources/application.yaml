@@ -1,9 +1,16 @@
-spring.cloud.discovery.client.simple.instances.weathers[0].uri: https://api-server-simulator.herokuapp.com
+spring.cloud.openfeign.circuitbreaker.enabled: true
 feign:
-    client:
-        config:
-            weathers:
-                connectTimeout: 5000
-                readTimeout: 15000
-                loggerLevel: full
-                
+  circuitbreaker:
+    enabled: true
+    alphanumeric-ids:
+      enabled: true
+resilience4j:
+  circuitbreaker:
+    instances:
+      WeatherFeigncurrentStringString:
+        minimumNumberOfCalls: 10
+        failureRateThreshold: 50
+  timelimiter:
+    instances:
+      WeatherFeigncurrentStringString:
+        timeoutDuration: 10s
