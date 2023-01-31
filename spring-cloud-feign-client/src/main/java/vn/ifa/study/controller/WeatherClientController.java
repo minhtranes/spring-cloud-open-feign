@@ -1,4 +1,4 @@
-package vn.ifa.study.feign;
+package vn.ifa.study.controller;
 
 import java.util.UUID;
 
@@ -8,19 +8,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import vn.ifa.study.feign.Response;
+import vn.ifa.study.feign.WeatherFeign;
 
 @RestController
 @RequestMapping("api")
 public class WeatherClientController {
+    
     @Autowired
     private WeatherFeign weatherClient;
 
     @GetMapping("current")
-    public JsonNode current(
+    public Response current(
         @RequestParam(name = "timeout", required = false, defaultValue = "PT0S") final String timeout) {
 
-        return weatherClient.current(UUID.randomUUID()
-                .toString(), timeout);
+        return weatherClient.current(UUID.randomUUID().toString(), timeout);
     }
 }
