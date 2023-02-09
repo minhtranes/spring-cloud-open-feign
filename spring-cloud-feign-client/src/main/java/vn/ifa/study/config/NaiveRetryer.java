@@ -2,7 +2,9 @@ package vn.ifa.study.config;
 
 import feign.RetryableException;
 import feign.Retryer;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class NaiveRetryer implements Retryer {
 
     private FeignRetryProperties feignRetryProperties;
@@ -19,10 +21,11 @@ public class NaiveRetryer implements Retryer {
     @Override
     public void continueOrPropagate(RetryableException e) {
 
+        
         if (attempt++ >= feignRetryProperties.getMaxAttempts()) {
             throw e;
         }
-
+        log.info("Retry attempt: {}, due to: {}", this.attempt, e.getMessage());
         long interval;
 
         if (e.retryAfter() != null) {

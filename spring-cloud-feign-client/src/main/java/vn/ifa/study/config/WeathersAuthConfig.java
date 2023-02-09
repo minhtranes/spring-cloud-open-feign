@@ -1,14 +1,15 @@
 package vn.ifa.study.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 
 import feign.RequestInterceptor;
 import feign.Retryer;
 import lombok.RequiredArgsConstructor;
 
+@Configuration
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class WeathersAuthConfig {
 
@@ -20,12 +21,6 @@ public class WeathersAuthConfig {
 
         return requestTemplate -> requestTemplate.header(HttpHeaders.AUTHORIZATION,
                                                            oauth2Provider.getAuthenticationToken(AUTHZ_SERVER_NAME));
-    }
-    
-    @Bean
-    @ConfigurationProperties(prefix = "feign.native-retryer")
-    FeignRetryProperties feignRetryProperties() {
-        return new FeignRetryProperties();
     }
     
     @Bean
